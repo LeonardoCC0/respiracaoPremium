@@ -1,0 +1,594 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>AERO™ — A Assinatura de Ar Definitiva | Oxigênio as a Service</title>
+  
+  <!-- Modern Clean Typography -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@300;400;500;600;700;800&family=Space+Grotesk:wght@500;700&display=swap" rel="stylesheet">
+  
+  <link rel="stylesheet" href="style.css" />
+</head>
+<body>
+  <!-- Atmospheric background lights and floating molecules -->
+  <div class="ambient-glow glow-cyan"></div>
+  <div class="ambient-glow glow-emerald"></div>
+  <div class="ambient-glow glow-violet"></div>
+  <canvas id="molecules-canvas"></canvas>
+
+  <!-- Navigation -->
+  <header class="navbar">
+    <div class="nav-container">
+      <a href="#" class="logo">
+        <span class="logo-symbol">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+            <circle cx="12" cy="12" r="9"></circle>
+            <path d="M8 12c0-2.2 1.8-4 4-4s4 1.8 4 4-1.8 4-4 4"></path>
+            <circle cx="12" cy="12" r="1.5" fill="currentColor"></circle>
+          </svg>
+        </span>
+        <span class="logo-text">AERO<span class="accent">™</span></span>
+        <span class="logo-tag">O₂ PRIME</span>
+      </a>
+
+      <nav class="nav-links">
+        <a href="#simulator">Simulador</a>
+        <a href="#diagnostic">Diagnóstico</a>
+        <a href="#benefits">Vantagens</a>
+        <a href="#comparison">Ar Grátis vs Aero</a>
+        <a href="#pricing">Planos</a>
+      </nav>
+
+      <div class="nav-actions">
+        <button id="nav-sound-toggle" class="sound-toggle-btn" title="Alternar áudio atmosférico">
+          <span class="sound-icon">🔊</span>
+          <span class="sound-label">Áudio Hi-Fi</span>
+        </button>
+        <a href="#pricing" class="btn btn-primary btn-sm">Upgrade Pulmonar</a>
+      </div>
+    </div>
+  </header>
+
+  <!-- Hero Section -->
+  <section class="hero-section">
+    <div class="hero-badge">
+      <span class="pulse-dot"></span>
+      <span>Apresentando Air 2.4 — Com Redução Ativa de Monóxido de Carbono</span>
+    </div>
+
+    <h1 class="hero-title">
+      Você respira de graça há anos.<br/>
+      <span class="gradient-text">E olha a sua qualidade de vida.</span>
+    </h1>
+
+    <p class="hero-subtitle">
+      Chega de inalar o mesmo ar genérico da plebe. Conheça a <strong>AERO™</strong>, a primeira 
+      assinatura de oxigênio sob demanda com 99,9% de pureza, aroma curado e zero latência alveolar. 
+      Respirar é essencial, mas respirar com exclusividade é status.
+    </p>
+
+    <div class="hero-cta-group">
+      <button class="btn btn-primary btn-lg" onclick="scrollToSection('pricing')">
+        <span class="btn-icon">💨</span>
+        <span>Assinar Meu Oxigênio VIP</span>
+      </button>
+      <button class="btn btn-glass btn-lg" onclick="scrollToSection('simulator')">
+        <span class="btn-icon">🌬️</span>
+        <span>Testar Inalação Demo (Com Anúncios)</span>
+      </button>
+    </div>
+
+    <!-- Live Live Metric Ticker -->
+    <div class="hero-stats">
+      <div class="stat-card">
+        <span class="stat-number" id="counter-liters">1.849.200 L</span>
+        <span class="stat-label">De O₂ Premium Inalados Hoje</span>
+      </div>
+      <div class="stat-divider"></div>
+      <div class="stat-card">
+        <span class="stat-number">99.98%</span>
+        <span class="stat-label">Pureza Atmosférica Sem Glúten</span>
+      </div>
+      <div class="stat-divider"></div>
+      <div class="stat-card">
+        <span class="stat-number">0.02 ms</span>
+        <span class="stat-label">Latência de Troca Gasosa nos Alvéolos</span>
+      </div>
+      <div class="stat-divider"></div>
+      <div class="stat-card">
+        <span class="stat-number">5.0 ★</span>
+        <span class="stat-label">Avaliado por 42.000 Faria Limers</span>
+      </div>
+    </div>
+  </section>
+
+  <!-- Interactive Breathing Simulator (Interactive Experience) -->
+  <section id="simulator" class="section simulator-section">
+    <div class="section-header">
+      <span class="section-tag">TECNOLOGIA EXPERIENCIAL</span>
+      <h2>Simulador de Inalação Comparativa</h2>
+      <p>Sinta fisicamente no seu navegador a diferença humilhante entre o ar gratuito e o Ar AERO™ Pro.</p>
+    </div>
+
+    <div class="simulator-card">
+      <div class="simulator-mode-switch">
+        <button id="mode-free-btn" class="mode-tab active" onclick="setBreatheMode('free')">
+          <span class="mode-icon">🌫️</span>
+          <span>Modo Grátis (Ar da Plebe)</span>
+        </button>
+        <button id="mode-pro-btn" class="mode-tab" onclick="setBreatheMode('pro')">
+          <span class="mode-icon">💎</span>
+          <span>Modo AERO™ Pro Max (Hi-Fi)</span>
+        </button>
+      </div>
+
+      <div class="breathing-stage">
+        <!-- Visualizer Rings -->
+        <div class="orb-container">
+          <div class="orb-outer-glow" id="orb-outer"></div>
+          <div class="orb-core" id="orb-core">
+            <span class="orb-phase-text" id="orb-text">Pronto</span>
+            <span class="orb-sub-text" id="orb-subtext">Clique para Iniciar</span>
+          </div>
+        </div>
+
+        <!-- Ad Interruption Simulation (For Free Mode) -->
+        <div id="ad-overlay" class="ad-overlay hidden">
+          <div class="ad-badge">PUBLICIDADE OBRIGATÓRIA</div>
+          <h4>Sua respiração foi pausada!</h4>
+          <p>O ar gratuito expirou após 4 segundos. Para continuar enchendo os pulmões sem interrupções comerciais, assine o plano <strong>AERO™ Plus</strong>.</p>
+          <div class="ad-sponsor">Patrocinado por: <em>"PneuBom — Mais aderência pro seu carro enquanto você fica sem ar"</em></div>
+          <div class="ad-timer">Continuando a respirar em <span id="ad-countdown">3</span>s...</div>
+        </div>
+      </div>
+
+      <!-- Simulator Controls -->
+      <div class="simulator-controls">
+        <button id="breathe-start-btn" class="btn btn-primary" onclick="toggleBreatheCycle()">
+          <span id="breathe-btn-icon">▶</span>
+          <span id="breathe-btn-label">Iniciar Ciclo de Respiração</span>
+        </button>
+        <div class="simulator-status" id="simulator-feedback">
+          Modo selecionado: <strong>Ar Grátis</strong> (Inclui partículas de escapamento de ônibus e poeira urbana).
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Pulmonary Diagnostic (Scanner) -->
+  <section id="diagnostic" class="section diagnostic-section">
+    <div class="section-header">
+      <span class="section-tag">DIAGNÓSTICO PULMONAR DE IA</span>
+      <h2>Descubra a qualidade do ar que você está inalando agora</h2>
+      <p>Nosso algoritmo patenteado detecta as microimpurezas que sabotam sua produtividade.</p>
+    </div>
+
+    <div class="scanner-container">
+      <div class="scanner-ui">
+        <div class="scanner-input-grid">
+          <div class="input-field">
+            <label for="diag-city">Cidade onde você respira:</label>
+            <input type="text" id="diag-city" placeholder="Ex: São Paulo, Rio, Curitiba..." value="São Paulo" />
+          </div>
+          <div class="input-field">
+            <label for="diag-age">Anos respirando ar de graça:</label>
+            <input type="number" id="diag-age" placeholder="Ex: 24" value="26" />
+          </div>
+          <div class="input-field">
+            <label for="diag-symptom">Sintoma mais frequente:</label>
+            <select id="diag-symptom">
+              <option value="cansaco">Cansaço existencial às 14h</option>
+              <option value="bocejo">Bocejos de baixa resolução</option>
+              <option value="ar-pesado">Sensação de inalar fumaça de Uno 1996</option>
+              <option value="inveja">Inveja de quem mora nos Alpes</option>
+            </select>
+          </div>
+        </div>
+
+        <button class="btn btn-secondary btn-full" id="scan-btn" onclick="runDiagnosticScan()">
+          <span class="scan-icon">🔬</span>
+          <span id="scan-btn-text">Escanear Meus Pulmões Agora</span>
+        </button>
+
+        <!-- Dynamic Results Screen -->
+        <div id="diagnostic-results" class="results-card hidden">
+          <div class="results-header">
+            <div class="results-badge-danger">⚠️ AR CATEGORIA D: CRÍTICO</div>
+            <h3>Resultado do Teste Biométrico</h3>
+          </div>
+          <div class="results-metrics">
+            <div class="res-item">
+              <span class="res-label">Pureza do seu ar atual</span>
+              <span class="res-value text-danger" id="res-purity">41.2%</span>
+            </div>
+            <div class="res-item">
+              <span class="res-label">Monóxido acumulado</span>
+              <span class="res-value" id="res-pollution">Alto (Nível Faria Lima em dia de rodízio)</span>
+            </div>
+            <div class="res-item">
+              <span class="res-label">Previsão com AERO™</span>
+              <span class="res-value text-accent">+340% de clareza mental e postura de CEO</span>
+            </div>
+          </div>
+          <p class="results-verdict" id="res-verdict">
+            "Seus pulmões estão trabalhando com o firmware de 1840. Você está perdendo cerca de 32 minutos de produtividade por dia só tossindo silenciosamente."
+          </p>
+          <button class="btn btn-primary" onclick="scrollToSection('pricing')">Salvar Meus Pulmões Imediatamente</button>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Benefits & Feature Pillars -->
+  <section id="benefits" class="section benefits-section">
+    <div class="section-header">
+      <span class="section-tag">ENGENHARIA DA ATMOSFERA</span>
+      <h2>Por que respirar de graça virou coisa do passado?</h2>
+      <p>Veja os diferenciais tecnológicos que colocam o AERO™ anos-luz à frente da atmosfera terrestre padrão.</p>
+    </div>
+
+    <div class="benefits-grid">
+      <div class="benefit-card">
+        <div class="benefit-icon">🧬</div>
+        <h3>Moléculas com DRM Proprietário</h3>
+        <p>Cada átomo de O₂ é criptografado ponto-a-ponto com chave RSA de 4096 bits. Nenhum vizinho invejoso vai roubar seu ar por osmose.</p>
+      </div>
+
+      <div class="benefit-card">
+        <div class="benefit-icon">🔇</div>
+        <h3>Cancelamento de Ruído Alveolar (ANC)</h3>
+        <p>Inalação 100% silenciosa. Chega daquele som constrangedor de você puxando o ar como se tivesse acabado de subir três degraus de escada.</p>
+      </div>
+
+      <div class="benefit-card">
+        <div class="benefit-icon">🏔️</div>
+        <h3>Notas Olfativas Selecionadas</h3>
+        <p>Escolha o perfil aromático do seu mês: <em>Pinho dos Alpes Franceses</em>, <em>Chuva no Asfalto de Mônaco</em> ou <em>Madeira de Escritório de Herdeiro</em>.</p>
+      </div>
+
+      <div class="benefit-card">
+        <div class="benefit-icon">⚡</div>
+        <h3>Latência Zero nas Hemácias</h3>
+        <p>O oxigênio é injetado diretamente na corrente sanguínea com aceleração de hardware. Seu cérebro passa a rodar em 120 FPS.</p>
+      </div>
+
+      <div class="benefit-card">
+        <div class="benefit-icon">☁️</div>
+        <h3>Expiração com Efeito Névoa VIP</h3>
+        <p>Quando você soltar o ar, quem estiver por perto saberá que você é assinante pela densidade suave e sofisticada da sua respiração.</p>
+      </div>
+
+      <div class="benefit-card">
+        <div class="benefit-icon">📱</div>
+        <h3>App com Relatório de Inalações</h3>
+        <p>Acompanhe quantas respirações você fez hoje, compartilhe no LinkedIn e desbloqueie o selo "Pulmão de Titânio" na sua rede.</p>
+      </div>
+    </div>
+  </section>
+
+  <!-- Detailed Comparison Table (Free vs Paid) -->
+  <section id="comparison" class="section comparison-section">
+    <div class="section-header">
+      <span class="section-tag">COMPARAÇÃO HONESTA</span>
+      <h2>Ar Gratuito vs. Ecossistema AERO™</h2>
+      <p>Ainda em dúvida se vale a pena gastar parte do seu salário para manter seus órgãos vitais funcionando com requinte?</p>
+    </div>
+
+    <div class="table-wrapper">
+      <table class="comparison-table">
+        <thead>
+          <tr>
+            <th>Recurso Atmosférico</th>
+            <th class="col-free">Ar da Natureza (Grátis)</th>
+            <th class="col-pro">AERO™ Plus (R$ 89/mês)</th>
+            <th class="col-max highlight-col">AERO™ Pro Max Ultra (R$ 499/mês)</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td>Pureza de O₂</td>
+            <td>~20.9% (Diluído em poeira)</td>
+            <td>99.2% Filtrado</td>
+            <td class="highlight-col"><strong>99.998% Hi-Fi Estratosférico</strong></td>
+          </tr>
+          <tr>
+            <td>Comerciais e Anúncios</td>
+            <td>Interrompido por fumaça de ônibus</td>
+            <td>Zero anúncios</td>
+            <td class="highlight-col"><strong>Você patrocina o ar dos outros</strong></td>
+          </tr>
+          <tr>
+            <td>Aroma</td>
+            <td>Poluição & Fritura do vizinho</td>
+            <td>Menta Fresca Silvestre</td>
+            <td class="highlight-col"><strong>Perfume de dinheiro novo</strong></td>
+          </tr>
+          <tr>
+            <td>Taxa de Dióxido de Carbono</td>
+            <td>Alta (Te deixa sonolento)</td>
+            <td>Purgada em tempo real</td>
+            <td class="highlight-col"><strong>CO₂ convertido em endorfina</strong></td>
+          </tr>
+          <tr>
+            <td>Selo no Peito / Status Social</td>
+            <td>Cidadão Comum</td>
+            <td>Verificado Bronze</td>
+            <td class="highlight-col"><strong>Emblema Holográfico de Alvéolo VIP</strong></td>
+          </tr>
+          <tr>
+            <td>Suporte se Faltar Ar</td>
+            <td>Rezar</td>
+            <td>Chat no WhatsApp 24/7</td>
+            <td class="highlight-col"><strong>Helicóptero de O₂ com som ambiente</strong></td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+  </section>
+
+  <!-- Pricing Section (Plans) -->
+  <section id="pricing" class="section pricing-section">
+    <div class="section-header">
+      <span class="section-tag">PLANOS MENSAIS</span>
+      <h2>Escolha como seus pulmões vão viver a partir de hoje</h2>
+      <p>Cancele quando quiser. Mas avisamos: voltar pro ar gratuito é como trocar vinho Grand Cru por água de poço.</p>
+    </div>
+
+    <div class="pricing-grid">
+      <!-- Tier 1: Free -->
+      <div class="pricing-card free-tier">
+        <div class="plan-header">
+          <span class="plan-type">BÁSICO / PLEBE</span>
+          <h3 class="plan-name">Ar Comum</h3>
+          <p class="plan-desc">Para quem ainda insiste em depender da atmosfera do planeta Terra sem pagar taxa.</p>
+        </div>
+        <div class="plan-price">
+          <span class="currency">R$</span>
+          <span class="amount">0</span>
+          <span class="period">/mês</span>
+        </div>
+        <ul class="plan-features">
+          <li>❌ 78% Nitrogênio sem sabor</li>
+          <li>❌ 1 anúncio a cada 15 inspirações</li>
+          <li>❌ Partículas de fuligem inclusas</li>
+          <li>❌ Respiração ruidosa em reuniões</li>
+          <li>❌ Zero suporte caso você sufoque</li>
+        </ul>
+        <button class="btn btn-outline btn-full" onclick="openCheckout('free')">Continuar Sofrendo de Graça</button>
+      </div>
+
+      <!-- Tier 2: Pro (Featured) -->
+      <div class="pricing-card pro-tier featured">
+        <div class="popular-ribbon">MAIS ASSINADO 🔥</div>
+        <div class="plan-header">
+          <span class="plan-type">INDIVIDUAL RECOMENDADO</span>
+          <h3 class="plan-name">AERO™ Plus</h3>
+          <p class="plan-desc">O ar que você merece para parar de bocejar em horário comercial.</p>
+        </div>
+        <div class="plan-price">
+          <span class="currency">R$</span>
+          <span class="amount">89</span>
+          <span class="cents">,90</span>
+          <span class="period">/mês</span>
+        </div>
+        <ul class="plan-features">
+          <li>✅ <strong>Oxigênio 99.2% puro</strong> microfiltrado</li>
+          <li>✅ Zero anúncios enquanto você dorme</li>
+          <li>✅ Aroma a escolher: Menta Alpina ou Lavanda</li>
+          <li>✅ Redução de 45% nos suspiros de tristeza</li>
+          <li>✅ Carteirinha Digital de Pulmão Saudável</li>
+        </ul>
+        <button class="btn btn-primary btn-full" onclick="openCheckout('plus')">Fazer Upgrade Pro</button>
+      </div>
+
+      <!-- Tier 3: Billionaire Ultra -->
+      <div class="pricing-card ultra-tier">
+        <div class="plan-header">
+          <span class="plan-type">STATUS MÁXIMO</span>
+          <h3 class="plan-name">Atmo Pro Max Ultra</h3>
+          <p class="plan-desc">Oxigênio colhido a 12.000 metros de altitude por monges tibetanos certificados.</p>
+        </div>
+        <div class="plan-price">
+          <span class="currency">R$</span>
+          <span class="amount">499</span>
+          <span class="cents">,90</span>
+          <span class="period">/mês</span>
+        </div>
+        <ul class="plan-features">
+          <li>✅ <strong>99.998% Oxigênio Hi-Fi Lossless</strong></li>
+          <li>✅ Cancelamento Ativo de Dióxido de Carbono</li>
+          <li>✅ Pressão atmosférica customizável sob medida</li>
+          <li>✅ Prioridade biológica na cadeia alimentar</li>
+          <li>✅ Certificado NFT de Pureza no Blockchain</li>
+          <li>✅ Frasco de emergência banhado a ouro 24k</li>
+        </ul>
+        <button class="btn btn-secondary btn-full" onclick="openCheckout('ultra')">Quero Respirar como Bilionário</button>
+      </div>
+    </div>
+  </section>
+
+  <!-- Satirical Testimonials -->
+  <section class="section testimonials-section">
+    <div class="section-header">
+      <span class="section-tag">DEPOIMENTOS DE QUEM SUPEROU O AR GRÁTIS</span>
+      <h2>Quem assinou nunca mais olhou para o céu da mesma forma</h2>
+    </div>
+
+    <div class="testimonials-grid">
+      <div class="test-card">
+        <div class="test-rating">★★★★★</div>
+        <p class="test-quote">
+          "Antes eu respirava aquele ar cheio de monóxido da Marginal Tietê. Minha produtividade no home office era deplorável. Com o AERO™ Plus, agora eu fecho três rodadas de investimento antes do almoço sem tossir uma única vez."
+        </p>
+        <div class="test-author">
+          <div class="author-avatar">👔</div>
+          <div>
+            <strong>Enzo Vasconcellos</strong>
+            <span>Venture Capitalist & Biohacker Respiratório</span>
+          </div>
+        </div>
+      </div>
+
+      <div class="test-card">
+        <div class="test-rating">★★★★★</div>
+        <p class="test-quote">
+          "Meninas, o ar grátis envelhece a pele! Desde que assinei o pacote com infusão de ozônio e aroma de pinheiro suíço, meus poros respiram sozinhos. Meu dermatologista até me perguntou qual ácido eu tomei: respondi que tomei AERO™."
+        </p>
+        <div class="test-author">
+          <div class="author-avatar">✨</div>
+          <div>
+            <strong>Yasmin Alcantara</strong>
+            <span>Influenciadora de Bem-Estar & Consumo Consciente</span>
+          </div>
+        </div>
+      </div>
+
+      <div class="test-card">
+        <div class="test-rating">★★★★★</div>
+        <p class="test-quote">
+          "Como desenvolvedor de software, oxigênio de baixa qualidade me dava tela azul mental. A latência alveolar do AERO™ Pro Max me permitiu refatorar um monólito legado em Rust sem tomar café."
+        </p>
+        <div class="test-author">
+          <div class="author-avatar">💻</div>
+          <div>
+            <strong>Rodrigo S.</strong>
+            <span>Engenheiro de Software Sênior</span>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- FAQ Section -->
+  <section class="section faq-section">
+    <div class="section-header">
+      <span class="section-tag">DÚVIDAS FREQUENTES</span>
+      <h2>Tudo o que você precisa saber antes de privatizar seu oxigênio</h2>
+    </div>
+
+    <div class="faq-accordion">
+      <details class="faq-item">
+        <summary>O que acontece se eu esquecer de pagar a fatura do mês?</summary>
+        <p>Você não morre, fique tranquilo! Apenas rebaixamos imediatamente seu fornecimento para ar de rodoviária do interior às 17h45 de uma sexta-feira chuvosa, até que o Pix seja compensado.</p>
+      </details>
+
+      <details class="faq-item">
+        <summary>Posso respirar o ar da assinatura de outra pessoa pelo plano família?</summary>
+        <p>Não. Nossas moléculas possuem DRM (Digital Rights Management) biológico com reconhecimento de DNA. Se outra pessoa inalar o seu oxigênio, ela receberá um aviso sonoro nos alvéolos de violação de direitos autorais.</p>
+      </details>
+
+      <details class="faq-item">
+        <summary>O oxigênio AERO™ contém glúten ou lactose?</summary>
+        <p>Zero glúten, 100% vegano, kosher, halal e livre de testes em animais atmosféricos. Nosso ar é 100% orgânico e colhido sem crueldade nas mais nobres brisas do planeta.</p>
+      </details>
+
+      <details class="faq-item">
+        <summary>Como o ar chega até minha casa?</summary>
+        <p>Através da nossa rede proprietária de satélites quânticos 5G O₂ que reconfiguram a composição atômica da sua sala de estar em nanosegundos assim que seu cartão é aprovado.</p>
+      </details>
+    </div>
+  </section>
+
+  <!-- Footer -->
+  <footer class="app-footer">
+    <div class="footer-content">
+      <div class="footer-brand">
+        <span class="logo-text">AERO<span class="accent">™</span></span>
+        <p>Revolucionando o ato mais primitivo da humanidade com taxa de assinatura e alta margem de lucro.</p>
+      </div>
+      <div class="footer-links">
+        <a href="#simulator">Simulador</a>
+        <a href="#pricing">Planos</a>
+        <a href="#diagnostic">Diagnóstico</a>
+      </div>
+    </div>
+    <div class="footer-bottom">
+      <p>© 2026 AERO Technologies Inc. Todos os direitos de respiração reservados.</p>
+      <p class="legal-disclaimer">
+        *Aviso Legal: AERO™ é uma sátira corporativa sobre hiper-comodificação da vida. Por favor, continue respirando ar comum (ele ainda é grátis, pelo menos por enquanto).
+      </p>
+    </div>
+  </footer>
+
+  <!-- Interactive Checkout / Activation Modal -->
+  <div id="checkout-modal" class="modal-overlay hidden">
+    <div class="modal-card">
+      <button class="modal-close" onclick="closeCheckout()">&times;</button>
+      
+      <!-- Step 1: Form -->
+      <div id="modal-step-form">
+        <div class="modal-badge" id="modal-plan-badge">PLANO AERO™ PLUS</div>
+        <h3 class="modal-title">Configurar seu Ar Exclusivo</h3>
+        <p class="modal-subtitle">Preencha seus dados biológicos para ativarmos o envio atmosférico.</p>
+
+        <form id="checkout-form" onsubmit="handleCheckoutSubmit(event)">
+          <div class="form-group">
+            <label for="user-name">Seu Nome Completo:</label>
+            <input type="text" id="user-name" placeholder="Ex: Lucas Respirador Silva" required />
+          </div>
+
+          <div class="form-group">
+            <label for="flavor-choice">Escolha o Aroma Molecular:</label>
+            <select id="flavor-choice">
+              <option value="alpes">🏔️ Pinho dos Alpes Franceses (Refrescante)</option>
+              <option value="lavanda">🌿 Lavanda Fóssil Provençal (Anti-estresse)</option>
+              <option value="monaco">🛥️ Brisa de Iate em Mônaco (Notas de Riqueza)</option>
+              <option value="cafe">☕ Grãos de Café Tostados na Toscana (Alta Produtividade)</option>
+            </select>
+          </div>
+
+          <div class="form-group">
+            <label for="payment-method">Forma de Pagamento:</label>
+            <select id="payment-method">
+              <option value="pix">⚡ Pix Instantâneo (Liberação Imediata dos Pulmões)</option>
+              <option value="cartao">💳 Cartão Black Sem Limite (Recorrência Vitalícia)</option>
+              <option value="pulmao">🫁 Vender 5% da capacidade do pulmão esquerdo</option>
+            </select>
+          </div>
+
+          <div class="modal-price-box">
+            <span>Total Mensal:</span>
+            <strong id="modal-total-price">R$ 89,90/mês</strong>
+          </div>
+
+          <button type="submit" class="btn btn-primary btn-full">
+            <span>Confirmar e Inalar com Exclusividade</span>
+          </button>
+        </form>
+      </div>
+
+      <!-- Step 2: Confirmation / VIP Certificate -->
+      <div id="modal-step-success" class="modal-success hidden">
+        <div class="success-icon">🫁✨</div>
+        <div class="badge-vip">ASSINATURA ATIVA • ALVÉOLO VERIFICADO</div>
+        <h3 id="cert-title">Parabéns, Lucas!</h3>
+        <p class="success-message">
+          Seus pulmões acabam de receber o upgrade para o <strong>AERO™ OS v4.2</strong>. 
+          Puxe o ar bem fundo agora mesmo: você acabou de respirar com status VIP.
+        </p>
+
+        <div class="certificate-box">
+          <div class="cert-header">
+            <span>CERTIFICADO DE EXCLUSIVIDADE ATMOSFÉRICA</span>
+            <span class="cert-code" id="cert-code">O2-98421-VIP</span>
+          </div>
+          <div class="cert-details">
+            <div>Beneficiário: <strong id="cert-name">Lucas Respirador Silva</strong></div>
+            <div>Aroma Ativo: <strong id="cert-flavor">Pinho dos Alpes</strong></div>
+            <div>Pureza Garantida: <strong>99.98% Sem Anúncios</strong></div>
+          </div>
+        </div>
+
+        <button class="btn btn-primary btn-full" onclick="celebrateInhale()">
+          💨 Testar Primeira Inalação Premium Agora!
+        </button>
+      </div>
+    </div>
+  </div>
+
+  <script src="app.js"></script>
+</body>
+</html>
